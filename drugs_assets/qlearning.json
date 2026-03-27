@@ -1,0 +1,11 @@
+{
+    "Cytoxan":{"Highest_conc":20,"lowest_conc":5},
+    "Lidocaine":{"Highest_conc":4,"lowest_conc":1},
+    "Carboplatin":{"Highest_conc":10,"lowest_conc":1.25},
+    "5fu":{"Highest_conc":10,"lowest_conc":1.25},
+    "Lansoprazole":{"Highest_conc":20,"lowest_conc":5},
+    "Vancomycin":{"Highest_conc":4,"lowest_conc":1},
+    "Ampicillin":{"Highest_conc":20,"lowest_conc":5},
+    "Dexamethasone":{"Highest_conc":10,"lowest_conc":2.5}
+    
+    }
