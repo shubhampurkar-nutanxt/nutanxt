@@ -6,7 +6,7 @@ from scipy.signal import find_peaks
 import os
 import sqlite3
 
-st.set_page_config(page_title="Spectroscopy AI Agent", page_icon="🔬", layout="wide")
+st.set_page_config(page_title="Exepert review AI Agent", page_icon="🔬", layout="wide")
 
 # DB Initialization
 def init_db():
@@ -95,7 +95,7 @@ except ImportError:
         HAS_NEW_GENAI = None
 
 # Initialize Gemini setup
-GEMINI_API_KEY = "AIzaSyAfai9FXjYX1-apcdqdBTRk58hAUTYR-9c"
+GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 
 PROMINENCE = 0.05
 
@@ -245,7 +245,7 @@ def process_xcal(xcal):
         
     return peak_data
 
-st.title("🔬 Spectroscopy Review Agent")
+st.title("🔬 Expert  Review AI Agent")
 st.markdown("Upload a JSON containing sample information and `xcal` points to analyze the spectral signature automatically.")
 st.divider()
 
