@@ -995,5 +995,1644 @@
   },
 
   "notes": "Cocaine HCl is identified by strong carbonyl (~1712 cm⁻¹), aromatic (~999 cm⁻¹), and characteristic tropane doublet (~850–890 cm⁻¹)"
+},
+{
+  "drug_name": "Heroin",
+  "category": "narcotic",
+
+  "source": {
+    "primary": [
+      "peer-reviewed literature",
+      "NIH Raman/SERS studies",
+      "spectral databases"
+    ],
+    "secondary": [
+      "internal golden spectra dataset"
+    ],
+    "confidence": "high"
+  },
+
+  "reference_data": {
+    "num_reference_spectra": 25,
+    "note": "Validated across Raman and SERS datasets; fluorescence may affect normal Raman"
+  },
+
+  "golden_signature": {
+    "type": "normalized",
+    "note": "Intensity normalized to max peak = 1",
+    "peaks": [
+      {"position": 636, "intensity": 1.0},
+      {"position": 383, "intensity": 0.4531},
+      {"position": 546, "intensity": 0.2140},
+      {"position": 594, "intensity": 0.1724},
+      {"position": 454, "intensity": 0.1501},
+      {"position": 775, "intensity": 0.1227},
+      {"position": 427, "intensity": 0.1211},
+      {"position": 1659, "intensity": 0.1115},
+      {"position": 1358, "intensity": 0.1062},
+      {"position": 507, "intensity": 0.1030},
+      {"position": 1121, "intensity": 0.1020},
+      {"position": 369, "intensity": 0.0882},
+      {"position": 1725, "intensity": 0.0856},
+      {"position": 1437, "intensity": 0.0843},
+      {"position": 919, "intensity": 0.0805},
+      {"position": 844, "intensity": 0.0745},
+      {"position": 476, "intensity": 0.0742},
+      {"position": 879, "intensity": 0.0731},
+      {"position": 694, "intensity": 0.0643},
+      {"position": 570, "intensity": 0.0596},
+      {"position": 953, "intensity": 0.0535},
+      {"position": 902, "intensity": 0.0503},
+      {"position": 1168, "intensity": 0.0492},
+      {"position": 1062, "intensity": 0.0460},
+      {"position": 1257, "intensity": 0.0428},
+      {"position": 1327, "intensity": 0.0405},
+      {"position": 1188, "intensity": 0.0354},
+      {"position": 1293, "intensity": 0.0353}
+    ]
+  },
+
+  "critical_peaks": [
+    {
+      "position": 636,
+      "tolerance": 5,
+      "frequency": 0.97,
+      "importance": "critical",
+      "label": "ring bending (C-ring, CH bending)",
+      "label_source": "literature",
+      "justification": "Most stable and dominant Raman peak (~625–628 cm⁻¹ region)"
+    },
+    {
+      "position": 594,
+      "tolerance": 6,
+      "frequency": 0.90,
+      "importance": "critical",
+      "label": "C=CH out-of-plane bending",
+      "label_source": "literature",
+      "justification": "Strong structural fingerprint peak"
+    }
+  ],
+
+  "key_peaks": [
+    {
+      "position": 454,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.15,
+      "label": "ring vibration",
+      "note": "moderate intensity supporting peak"
+    },
+    {
+      "position": 507,
+      "tolerance": 8,
+      "frequency": 0.85,
+      "importance": "high",
+      "relative_intensity": 0.10,
+      "label": "skeletal vibration"
+    },
+    {
+      "position": 694,
+      "tolerance": 10,
+      "frequency": 0.80,
+      "importance": "high",
+      "relative_intensity": 0.064,
+      "label": "ring vibration"
+    },
+    {
+      "position": 1121,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.102,
+      "label": "C-C stretching"
+    },
+    {
+      "position": 1358,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.106,
+      "label": "CH scissoring"
+    },
+    {
+      "position": 1659,
+      "tolerance": 8,
+      "frequency": 0.80,
+      "importance": "medium",
+      "relative_intensity": 0.111,
+      "label": "aromatic C=C stretching"
+    }
+  ],
+
+  "peak_patterns": [
+    {
+      "name": "heroin_core_signature",
+      "peaks": [636, 594],
+      "required_matches": 2,
+      "weight": 1.0,
+      "description": "Primary heroin fingerprint"
+    },
+    {
+      "name": "structural_pattern",
+      "peaks": [454, 507, 694, 1121],
+      "required_matches": 2,
+      "weight": 0.8,
+      "description": "Supporting structural confirmation"
+    }
+  ],
+
+  "intensity_model": {
+    "type": "relative",
+    "normalization": "max_peak = 1",
+    "rule": "Low intensity peaks contribute proportionally",
+    "note": "SERS may alter intensities significantly"
+  },
+
+  "shift_model": {
+    "critical_peak_tolerance": 5,
+    "non_critical_range": [8, 12],
+    "method": "distance-based scoring",
+    "note": "SERS adsorption may cause small peak shifts"
+  },
+
+  "overlap_handling": {
+    "rule": "Avoid relying on single peaks; use pattern-based matching",
+    "penalty": "reduce confidence if only low-frequency peaks match"
+  },
+
+  "confusion_analysis": [
+    {
+      "drug": "Fentanyl",
+      "similarity": "Overlap in low-frequency region",
+      "difference": "Fentanyl has strong 1000–1030 peaks; heroin lacks strong aromatic doublet",
+      "resolution_strategy": [
+        "Presence of 1000–1030 peaks → fentanyl",
+        "Presence of 636 dominant peak → heroin"
+      ]
+    },
+    {
+      "drug": "Morphine / 6-MAM",
+      "similarity": "Very similar Raman/SERS spectra",
+      "difference": "Relative intensity differences in 1200–1400 region",
+      "resolution_strategy": [
+        "Use intensity ratio between 1200–1400 peaks",
+        "Check presence of acetyl group-related peaks"
+      ]
+    }
+  ],
+
+  "decision_strategy": {
+    "type": "weighted_evidence",
+    "rules": [
+      "Presence of 636 peak is essential for heroin identification",
+      "At least two critical/high peaks should match",
+      "Pattern match increases confidence significantly",
+      "Missing one critical peak reduces confidence but does not reject",
+      "Single peak match is insufficient",
+      "Conflicting peaks reduce score",
+      "if golden signature matches most then only one critical peak presence is sufficient for identification"
+
+    ]
+  },
+
+  "notes": "Heroin is characterized by dominant low-frequency Raman peaks (~636 cm⁻¹) with supporting peaks in 500–700 region; SERS is often required for detection in real samples"
+},
+{
+  "drug_name": "Oxycodone",
+  "category": "narcotic",
+
+  "source": {
+    "primary": [
+      "peer-reviewed literature",
+      "Wiley Raman/SERS studies",
+      "spectral databases"
+    ],
+    "secondary": [
+      "internal golden spectra dataset"
+    ],
+    "confidence": "high"
+  },
+
+  "reference_data": {
+    "num_reference_spectra": 25,
+    "note": "Validated across Raman and SERS datasets; tablet fluorescence may affect normal Raman"
+  },
+
+  "golden_signature": {
+    "type": "normalized",
+    "note": "Intensity normalized to max peak = 1",
+    "peaks": [
+      {"position": 1730, "intensity": 0.7011},
+      {"position": 371, "intensity": 0.5767},
+      {"position": 622, "intensity": 0.2168},
+      {"position": 431, "intensity": 0.2090},
+      {"position": 656, "intensity": 0.1566},
+      {"position": 345, "intensity": 0.1420},
+      {"position": 1450, "intensity": 0.1398},
+      {"position": 1362, "intensity": 0.0988},
+      {"position": 1646, "intensity": 0.0859},
+      {"position": 704, "intensity": 0.0795},
+      {"position": 1305, "intensity": 0.0681},
+      {"position": 1050, "intensity": 0.0609},
+      {"position": 501, "intensity": 0.0593},
+      {"position": 1077, "intensity": 0.0494},
+      {"position": 1151, "intensity": 0.0488},
+      {"position": 772, "intensity": 0.0480},
+      {"position": 888, "intensity": 0.0424},
+      {"position": 290, "intensity": 0.0423},
+      {"position": 341, "intensity": 0.0421},
+      {"position": 1100, "intensity": 0.0380},
+      {"position": 997, "intensity": 0.0331}
+    ]
+  },
+
+  "critical_peaks": [
+    {
+      "position": 1730,
+      "tolerance": 6,
+      "frequency": 0.95,
+      "importance": "critical",
+      "label": "C=O carbonyl stretching",
+      "label_source": "literature",
+      "justification": "Strong opioid carbonyl signature"
+    },
+    {
+      "position": 622,
+      "tolerance": 6,
+      "frequency": 0.92,
+      "importance": "critical",
+      "label": "ring vibration (opioid core)",
+      "label_source": "literature",
+      "justification": "Characteristic opioid fingerprint peak (~610–630 cm⁻¹)"
+    }
+  ],
+
+  "key_peaks": [
+    {
+      "position": 431,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.209,
+      "label": "skeletal vibration"
+    },
+    {
+      "position": 656,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.156,
+      "label": "ring vibration"
+    },
+    {
+      "position": 704,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "high",
+      "relative_intensity": 0.079,
+      "label": "ring deformation"
+    },
+    {
+      "position": 1050,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.060,
+      "label": "C-O stretching"
+    },
+    {
+      "position": 1646,
+      "tolerance": 8,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.085,
+      "label": "aromatic C=C stretching"
+    },
+    {
+      "position": 1450,
+      "tolerance": 8,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.139,
+      "label": "CH bending"
+    }
+  ],
+
+  "peak_patterns": [
+    {
+      "name": "oxycodone_core_signature",
+      "peaks": [622, 1730],
+      "required_matches": 2,
+      "weight": 1.0,
+      "description": "Primary opioid + carbonyl signature"
+    },
+    {
+      "name": "opioid_structure_pattern",
+      "peaks": [431, 622, 656, 704],
+      "required_matches": 2,
+      "weight": 0.9,
+      "description": "Opioid ring structure confirmation"
+    }
+  ],
+
+  "intensity_model": {
+    "type": "relative",
+    "normalization": "max_peak = 1",
+    "rule": "Intensity contributes proportionally; not absolute",
+    "note": "SERS may suppress carbonyl intensity"
+  },
+
+  "shift_model": {
+    "critical_peak_tolerance": 5,
+    "non_critical_range": [8, 12],
+    "method": "distance-based scoring",
+    "note": "Peak shifts may occur in SERS"
+  },
+
+  "overlap_handling": {
+    "rule": "Carbonyl peaks (~1700) overlap with cocaine family",
+    "penalty": "require opioid-region peaks (~600–700) for confirmation"
+  },
+
+  "confusion_analysis": [
+    {
+      "drug": "Cocaine",
+      "similarity": "Both have strong carbonyl (~1700)",
+      "difference": "Cocaine has strong 1000 peak; oxycodone lacks dominant 1000",
+      "resolution_strategy": [
+        "Presence of 1000 → cocaine",
+        "Presence of 600–700 region → oxycodone"
+      ]
+    },
+    {
+      "drug": "Heroin",
+      "similarity": "Both have strong low-frequency peaks",
+      "difference": "Heroin dominant peak ~636; oxycodone broader 600–700 pattern + carbonyl",
+      "resolution_strategy": [
+        "Strong 636 single peak → heroin",
+        "Multiple 600–700 peaks + 1730 → oxycodone"
+      ]
+    }
+  ],
+
+  "decision_strategy": {
+    "type": "weighted_evidence",
+    "rules": [
+      "Presence of 622 + 1730 strongly supports oxycodone",
+      "At least two critical/high peaks required",
+      "600–700 region peaks are essential for opioid identification",
+      "Missing carbonyl reduces confidence",
+      "Single peak match is insufficient",
+      "Conflicting peaks reduce score",
+      "if golden signature matches most then only one critical peak presence is sufficient for identification"     
+    ]
+  },
+
+  "notes": "Oxycodone shows characteristic opioid fingerprint in 600–700 cm⁻¹ region combined with carbonyl (~1730 cm⁻¹), distinguishable from cocaine and heroin"
+},
+{
+  "drug_name": "MDMA",
+  "category": "narcotic",
+
+  "source": {
+    "primary": [
+      "peer-reviewed literature",
+      "ScienceDirect Raman studies",
+      "spectral databases"
+    ],
+    "secondary": [
+      "internal golden spectra dataset"
+    ],
+    "confidence": "high"
+  },
+
+  "reference_data": {
+    "num_reference_spectra": 30,
+    "note": "Validated across Raman and resonance Raman (UV/785 nm) datasets"
+  },
+
+  "golden_signature": {
+    "type": "normalized",
+    "note": "Intensity normalized to max peak = 1",
+    "peaks": [
+      {"position": 808, "intensity": 1.0},
+      {"position": 371, "intensity": 0.9673},
+      {"position": 367, "intensity": 0.9340},
+      {"position": 362, "intensity": 0.6115},
+      {"position": 358, "intensity": 0.3890},
+      {"position": 803, "intensity": 0.2928},
+      {"position": 712, "intensity": 0.2618},
+      {"position": 770, "intensity": 0.2383},
+      {"position": 525, "intensity": 0.1919},
+      {"position": 1368, "intensity": 0.1636},
+      {"position": 833, "intensity": 0.1621},
+      {"position": 607, "intensity": 0.1421},
+      {"position": 1097, "intensity": 0.1406},
+      {"position": 1446, "intensity": 0.1257},
+      {"position": 882, "intensity": 0.1189},
+      {"position": 633, "intensity": 0.1028},
+      {"position": 1250, "intensity": 0.1004},
+      {"position": 1605, "intensity": 0.0941},
+      {"position": 1124, "intensity": 0.0849},
+      {"position": 1012, "intensity": 0.0792},
+      {"position": 1068, "intensity": 0.0655},
+      {"position": 1155, "intensity": 0.0634},
+      {"position": 1407, "intensity": 0.0584},
+      {"position": 1714, "intensity": 0.0548},
+      {"position": 1000, "intensity": 0.0384}
+    ]
+  },
+
+  "critical_peaks": [
+    {
+      "position": 808,
+      "tolerance": 5,
+      "frequency": 0.98,
+      "importance": "critical",
+      "label": "methylenedioxy ring breathing",
+      "label_source": "literature",
+      "justification": "Most dominant and unique MDMA fingerprint peak (~810 cm⁻¹)"
+    },
+    {
+      "position": 770,
+      "tolerance": 6,
+      "frequency": 0.92,
+      "importance": "critical",
+      "label": "aryl ring deformation",
+      "label_source": "literature",
+      "justification": "Strong supporting peak for MDMA identification"
+    }
+  ],
+
+  "key_peaks": [
+    {
+      "position": 712,
+      "tolerance": 6,
+      "frequency": 0.90,
+      "importance": "high",
+      "relative_intensity": 0.26,
+      "label": "aryl C-H wagging"
+    },
+    {
+      "position": 1368,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.16,
+      "label": "CH deformation"
+    },
+    {
+      "position": 1446,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.12,
+      "label": "CH bending"
+    },
+    {
+      "position": 1605,
+      "tolerance": 8,
+      "frequency": 0.85,
+      "importance": "high",
+      "relative_intensity": 0.094,
+      "label": "aromatic C=C stretching"
+    },
+    {
+      "position": 1250,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.10,
+      "label": "ring vibration"
+    },
+    {
+      "position": 1097,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.14,
+      "label": "C-H deformation"
+    }
+  ],
+
+  "peak_patterns": [
+    {
+      "name": "mdma_core_signature",
+      "peaks": [808, 770],
+      "required_matches": 2,
+      "weight": 1.0,
+      "description": "Primary MDMA fingerprint (methylenedioxy ring)"
+    },
+    {
+      "name": "aromatic_pattern",
+      "peaks": [808, 770, 712, 1605],
+      "required_matches": 2,
+      "weight": 0.9,
+      "description": "Aromatic + ring structure confirmation"
+    }
+  ],
+
+  "intensity_model": {
+    "type": "relative",
+    "normalization": "max_peak = 1",
+    "rule": "Intensity contributes proportionally; not absolute",
+    "note": "Fluorescence and tablet composition may affect intensity"
+  },
+
+  "shift_model": {
+    "critical_peak_tolerance": 5,
+    "non_critical_range": [8, 12],
+    "method": "distance-based scoring",
+    "note": "Peak intensity and visibility depend on excitation wavelength"
+  },
+
+  "overlap_handling": {
+    "rule": "Avoid confusion with amphetamine-type compounds",
+    "penalty": "reduce confidence if only 1000 region peaks match"
+  },
+
+  "confusion_analysis": [
+    {
+      "drug": "Methamphetamine",
+      "similarity": "Both have peaks near 1000 cm⁻¹",
+      "difference": "MDMA dominant peak at 808; meth dominant at 1001",
+      "resolution_strategy": [
+        "808 peak → MDMA",
+        "1001 + 1019 → methamphetamine"
+      ]
+    },
+    {
+      "drug": "Amphetamine",
+      "similarity": "Similar aromatic structure",
+      "difference": "Amphetamine lacks strong 808 peak",
+      "resolution_strategy": [
+        "Presence of 808 → MDMA",
+        "Presence of 1032 → amphetamine"
+      ]
+    },
+    {
+      "drug": "Fentanyl",
+      "similarity": "Overlap in 1000–1600 region",
+      "difference": "Fentanyl lacks strong 808 peak",
+      "resolution_strategy": [
+        "808 peak → MDMA",
+        "1457 + 1000 → fentanyl"
+      ]
+    }
+  ],
+
+  "decision_strategy": {
+    "type": "weighted_evidence",
+    "rules": [
+      "Presence of 808 peak is essential for MDMA identification",
+      "At least two critical/high peaks should match",
+      "Pattern match significantly increases confidence",
+      "Missing one critical peak reduces confidence but does not reject",
+      "Single peak match is insufficient",
+      "Conflicting peaks reduce score",
+      "if golden signature matches most then only one critical peak presence is sufficient for identification"     
+    ]
+  },
+
+  "notes": "MDMA is characterized by strong methylenedioxy ring peak (~808 cm⁻¹) with supporting peaks at 770 and 712, distinguishing it from methamphetamine and amphetamine"
+},
+{
+  "drug_name": "Codeine",
+  "category": "narcotic",
+
+  "source": {
+    "primary": [
+      "peer-reviewed literature",
+      "PMC / Wiley Raman studies",
+      "spectral databases"
+    ],
+    "secondary": [
+      "internal golden spectra dataset"
+    ],
+    "confidence": "high"
+  },
+
+  "reference_data": {
+    "num_reference_spectra": 25,
+    "note": "Validated across Raman and SERS datasets; intensity varies with adsorption"
+  },
+
+  "golden_signature": {
+    "type": "normalized",
+    "note": "Intensity normalized to max peak = 1",
+    "peaks": [
+      {"position": 373, "intensity": 1.0},
+      {"position": 369, "intensity": 0.9067},
+      {"position": 365, "intensity": 0.6347},
+      {"position": 630, "intensity": 0.4881},
+      {"position": 361, "intensity": 0.4549},
+      {"position": 1065, "intensity": 0.3297},
+      {"position": 1275, "intensity": 0.2492},
+      {"position": 1717, "intensity": 0.2366},
+      {"position": 1361, "intensity": 0.2364},
+      {"position": 527, "intensity": 0.2359},
+      {"position": 1633, "intensity": 0.1913},
+      {"position": 773, "intensity": 0.1846},
+      {"position": 443, "intensity": 0.1658},
+      {"position": 1176, "intensity": 0.1515},
+      {"position": 839, "intensity": 0.1417},
+      {"position": 692, "intensity": 0.1289},
+      {"position": 576, "intensity": 0.1086},
+      {"position": 637, "intensity": 0.1081},
+      {"position": 1416, "intensity": 0.0993},
+      {"position": 977, "intensity": 0.0982},
+      {"position": 1479, "intensity": 0.0775},
+      {"position": 1560, "intensity": 0.0746}
+    ]
+  },
+
+  "critical_peaks": [
+    {
+      "position": 630,
+      "tolerance": 5,
+      "frequency": 0.97,
+      "importance": "critical",
+      "label": "ring deformation (out-of-plane bending)",
+      "label_source": "literature",
+      "justification": "Most diagnostic and consistent codeine peak (~628–630 cm⁻¹)"
+    },
+    {
+      "position": 532,
+      "tolerance": 6,
+      "frequency": 0.92,
+      "importance": "critical",
+      "label": "ring bending",
+      "label_source": "literature",
+      "justification": "Strong SERS-enhanced peak (~530–535 cm⁻¹)"
+    }
+  ],
+
+  "key_peaks": [
+    {
+      "position": 650,
+      "tolerance": 6,
+      "frequency": 0.90,
+      "importance": "high",
+      "relative_intensity": 0.48,
+      "label": "ring bending"
+    },
+    {
+      "position": 1275,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.24,
+      "label": "carbon ring deformation"
+    },
+    {
+      "position": 1336,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.23,
+      "label": "CH deformation"
+    },
+    {
+      "position": 1445,
+      "tolerance": 8,
+      "frequency": 0.85,
+      "importance": "high",
+      "relative_intensity": 0.14,
+      "label": "CH bending"
+    },
+    {
+      "position": 1633,
+      "tolerance": 8,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.19,
+      "label": "aromatic C=C stretching"
+    },
+    {
+      "position": 1065,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.32,
+      "label": "C-O stretching"
+    }
+  ],
+
+  "peak_patterns": [
+    {
+      "name": "codeine_core_signature",
+      "peaks": [630, 532],
+      "required_matches": 2,
+      "weight": 1.0,
+      "description": "Primary codeine fingerprint"
+    },
+    {
+      "name": "opioid_pattern",
+      "peaks": [530, 630, 650],
+      "required_matches": 2,
+      "weight": 0.9,
+      "description": "Opioid low-frequency structure"
+    }
+  ],
+
+  "intensity_model": {
+    "type": "relative",
+    "normalization": "max_peak = 1",
+    "rule": "Intensity contributes proportionally",
+    "note": "SERS significantly alters intensity and peak prominence"
+  },
+
+  "shift_model": {
+    "critical_peak_tolerance": 5,
+    "non_critical_range": [8, 12],
+    "method": "distance-based scoring",
+    "note": "SERS adsorption may shift peaks slightly"
+  },
+
+  "overlap_handling": {
+    "rule": "Opioids share similar low-frequency peaks",
+    "penalty": "require pattern-based confirmation"
+  },
+
+  "confusion_analysis": [
+    {
+      "drug": "Heroin",
+      "similarity": "Both have strong peaks near ~630 cm⁻¹",
+      "difference": "Heroin dominant single peak ~636; codeine shows multiple peaks (~530, 630, 650)",
+      "resolution_strategy": [
+        "Single dominant 636 → heroin",
+        "Multiple peaks 530–650 → codeine"
+      ]
+    },
+    {
+      "drug": "Oxycodone",
+      "similarity": "Shared opioid region (~600)",
+      "difference": "Oxycodone shows strong carbonyl (~1730); codeine less dominant carbonyl",
+      "resolution_strategy": [
+        "Strong 1700 → oxycodone",
+        "Strong 630 + 530 → codeine"
+      ]
+    },
+    {
+      "drug": "Morphine",
+      "similarity": "Very similar spectra",
+      "difference": "Relative intensity differences near 1200–1400 region",
+      "resolution_strategy": [
+        "Use intensity ratios in 1200–1400 region"
+      ]
+    }
+  ],
+
+  "decision_strategy": {
+    "type": "weighted_evidence",
+    "rules": [
+      "Presence of 630 peak is essential for codeine identification",
+      "At least two critical/high peaks should match",
+      "Multiple peaks in 530–650 region increase confidence",
+      "Missing one critical peak reduces confidence but does not reject",
+      "Single peak match is insufficient",
+      "Conflicting peaks reduce score",
+      "if golden signature matches most then only one critical peak presence is sufficient for identification"     
+    ]
+  },
+
+  "notes": "Codeine is characterized by strong low-frequency peaks (~530–650 cm⁻¹) with multiple ring deformation modes, distinguishing it from heroin and oxycodone"
+},
+{
+  "drug_name": "Alprazolam",
+  "category": "pharmaceutical (benzodiazepine)",
+
+  "source": {
+    "primary": [
+      "peer-reviewed literature",
+      "Metrohm Raman/SERS studies",
+      "spectral databases"
+    ],
+    "secondary": [
+      "internal golden spectra dataset"
+    ],
+    "confidence": "high"
+  },
+
+  "reference_data": {
+    "num_reference_spectra": 20,
+    "note": "Validated across Raman and SERS; tablet excipients may affect signal"
+  },
+
+  "golden_signature": {
+    "type": "normalized",
+    "note": "Intensity normalized to max peak = 1",
+    "peaks": [
+      {"position": 375, "intensity": 1.0},
+      {"position": 1087, "intensity": 0.7514},
+      {"position": 851, "intensity": 0.5101},
+      {"position": 1121, "intensity": 0.4276},
+      {"position": 876, "intensity": 0.3466},
+      {"position": 475, "intensity": 0.3454},
+      {"position": 1700, "intensity": 0.2719},
+      {"position": 1336, "intensity": 0.2641},
+      {"position": 1263, "intensity": 0.2255},
+      {"position": 1019, "intensity": 0.2157},
+      {"position": 1054, "intensity": 0.1961},
+      {"position": 1380, "intensity": 0.1927},
+      {"position": 1471, "intensity": 0.1715},
+      {"position": 1419, "intensity": 0.1677},
+      {"position": 900, "intensity": 0.1657},
+      {"position": 1296, "intensity": 0.1513},
+      {"position": 1003, "intensity": 0.1423},
+      {"position": 552, "intensity": 0.1381},
+      {"position": 953, "intensity": 0.1370},
+      {"position": 1455, "intensity": 0.1135},
+      {"position": 632, "intensity": 0.0853},
+      {"position": 1598, "intensity": 0.0643}
+    ]
+  },
+
+  "critical_peaks": [
+    {
+      "position": 1087,
+      "tolerance": 5,
+      "frequency": 0.92,
+      "importance": "critical",
+      "label": "C-N stretching / ring deformation",
+      "label_source": "literature",
+      "justification": "Highly reproducible alprazolam fingerprint peak"
+    }
+  ],
+
+  "key_peaks": [
+    {
+      "position": 475,
+      "tolerance": 8,
+      "frequency": 0.90,
+      "importance": "high",
+      "relative_intensity": 0.34,
+      "label": "ring deformation"
+    },
+    {
+      "position": 552,
+      "tolerance": 8,
+      "frequency": 0.90,
+      "importance": "high",
+      "relative_intensity": 0.13,
+      "label": "skeletal vibration"
+    },
+    {
+      "position": 900,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.16,
+      "label": "ring vibration"
+    },
+    {
+      "position": 1054,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.19,
+      "label": "C-N stretching"
+    },
+    {
+      "position": 1296,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.15,
+      "label": "ring deformation"
+    },
+    {
+      "position": 1419,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.16,
+      "label": "CH bending"
+    },
+    {
+      "position": 1471,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.17,
+      "label": "CH deformation"
+    },
+    {
+      "position": 1380,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.19,
+      "label": "C-N stretching"
+    }
+  ],
+
+  "peak_patterns": [
+    {
+      "name": "alprazolam_core_signature",
+      "peaks": [1000, 1087],
+      "required_matches": 2,
+      "weight": 1.0,
+      "description": "Primary benzodiazepine fingerprint"
+    },
+    {
+      "name": "aromatic_pattern",
+      "peaks": [1000, 1087, 1380, 1598],
+      "required_matches": 2,
+      "weight": 0.9,
+      "description": "Aromatic + ring structure confirmation"
+    }
+  ],
+
+  "intensity_model": {
+    "type": "relative",
+    "normalization": "max_peak = 1",
+    "rule": "Intensity contributes proportionally",
+    "note": "Tablet excipients may reduce signal intensity"
+  },
+
+  "shift_model": {
+    "critical_peak_tolerance": 5,
+    "non_critical_range": [8, 12],
+    "method": "distance-based scoring",
+    "note": "SERS may shift peaks slightly"
+  },
+
+  "overlap_handling": {
+    "rule": "Overlap with aromatic drugs (meth, cocaine, MDMA)",
+    "penalty": "require benzodiazepine-specific peak pattern"
+  },
+
+  "confusion_analysis": [
+    {
+      "drug": "Methamphetamine",
+      "similarity": "Both have peaks near ~1000",
+      "difference": "Meth has 1001 + 1019; alprazolam has 1087 + 1380",
+      "resolution_strategy": [
+        "1001 + 1019 → meth",
+        "1087 + 1380 → alprazolam"
+      ]
+    },
+    {
+      "drug": "MDMA",
+      "similarity": "Both aromatic compounds",
+      "difference": "MDMA dominant 808 peak; alprazolam lacks strong 808",
+      "resolution_strategy": [
+        "808 → MDMA",
+        "1087 + 1380 → alprazolam"
+      ]
+    },
+    {
+      "drug": "Cocaine",
+      "similarity": "Both show aromatic peaks",
+      "difference": "Cocaine has strong 1700 + 1000; alprazolam weaker carbonyl",
+      "resolution_strategy": [
+        "strong 1700 + 1000 → cocaine",
+        "1087 + 1380 → alprazolam"
+      ]
+    }
+  ],
+
+  "decision_strategy": {
+    "type": "weighted_evidence",
+    "rules": [
+      "Presence of 1000 and 1087 peaks strongly supports alprazolam",
+      "At least two critical/high peaks should match",
+      "Pattern match significantly increases confidence",
+      "Missing one critical peak reduces confidence but does not reject",
+      "Single peak match is insufficient",
+      "Conflicting peaks reduce score",
+      "if golden signature matches most then only one critical peak presence is sufficient for identification"
+    ]
+  },
+
+  "notes": "Alprazolam is characterized by strong aromatic peaks (~1000–1100 cm⁻¹) with additional benzodiazepine-specific peaks around 1380–1600 cm⁻¹"
+},
+{
+  "drug_name": "Xylazine",
+  "category": "non-opioid sedative (veterinary drug)",
+
+  "source": {
+    "primary": [
+      "peer-reviewed literature",
+      "ScienceDirect Raman studies",
+      "spectral databases"
+    ],
+    "secondary": [
+      "internal golden spectra dataset"
+    ],
+    "confidence": "high"
+  },
+
+  "reference_data": {
+    "num_reference_spectra": 20,
+    "note": "Validated across Raman and SERS; often present in mixtures with opioids"
+  },
+
+  "golden_signature": {
+    "type": "normalized",
+    "note": "Intensity normalized to max peak = 1",
+    "peaks": [
+      {"position": 1591, "intensity": 1.0},
+      {"position": 1255, "intensity": 0.6801},
+      {"position": 602, "intensity": 0.6663},
+      {"position": 707, "intensity": 0.6592},
+      {"position": 570, "intensity": 0.5378},
+      {"position": 1506, "intensity": 0.4924},
+      {"position": 1093, "intensity": 0.3881},
+      {"position": 1164, "intensity": 0.3119},
+      {"position": 504, "intensity": 0.2935},
+      {"position": 1439, "intensity": 0.2931},
+      {"position": 1210, "intensity": 0.2831},
+      {"position": 1375, "intensity": 0.2501},
+      {"position": 684, "intensity": 0.2373},
+      {"position": 1279, "intensity": 0.1719},
+      {"position": 887, "intensity": 0.1662},
+      {"position": 1700, "intensity": 0.1078},
+      {"position": 987, "intensity": 0.0597},
+      {"position": 1625, "intensity": 0.0542},
+      {"position": 1050, "intensity": 0.0485}
+    ]
+  },
+
+  "critical_peaks": [
+    {
+      "position": 1591,
+      "tolerance": 5,
+      "frequency": 0.97,
+      "importance": "critical",
+      "label": "C=N / C=C aromatic stretching",
+      "label_source": "literature",
+      "justification": "Most dominant and diagnostic xylazine peak (~1590 cm⁻¹)"
+    },
+    {
+      "position": 1255,
+      "tolerance": 6,
+      "frequency": 0.92,
+      "importance": "critical",
+      "label": "ring vibration (thiazine structure)",
+      "label_source": "literature",
+      "justification": "Strong fingerprint peak for xylazine"
+    }
+  ],
+
+  "key_peaks": [
+    {
+      "position": 602,
+      "tolerance": 8,
+      "frequency": 0.90,
+      "importance": "high",
+      "relative_intensity": 0.66,
+      "label": "ring deformation"
+    },
+    {
+      "position": 707,
+      "tolerance": 8,
+      "frequency": 0.90,
+      "importance": "high",
+      "relative_intensity": 0.65,
+      "label": "ring vibration"
+    },
+    {
+      "position": 570,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.53,
+      "label": "skeletal vibration"
+    },
+    {
+      "position": 1093,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.38,
+      "label": "C-N stretching"
+    },
+    {
+      "position": 1210,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.28,
+      "label": "ring deformation"
+    },
+    {
+      "position": 1375,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.25,
+      "label": "CH deformation"
+    },
+    {
+      "position": 1439,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.29,
+      "label": "CH bending"
+    },
+    {
+      "position": 1506,
+      "tolerance": 8,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.49,
+      "label": "aromatic stretching"
+    }
+  ],
+
+  "peak_patterns": [
+    {
+      "name": "xylazine_core_signature",
+      "peaks": [1591, 1255],
+      "required_matches": 2,
+      "weight": 1.0,
+      "description": "Primary xylazine fingerprint"
+    },
+    {
+      "name": "ring_cluster_pattern",
+      "peaks": [570, 602, 707],
+      "required_matches": 2,
+      "weight": 0.9,
+      "description": "Low-frequency ring structure"
+    },
+    {
+      "name": "aromatic_cluster",
+      "peaks": [1375, 1439, 1506, 1591],
+      "required_matches": 2,
+      "weight": 0.9,
+      "description": "Aromatic ring system confirmation"
+    }
+  ],
+
+  "intensity_model": {
+    "type": "relative",
+    "normalization": "max_peak = 1",
+    "rule": "Intensity contributes proportionally",
+    "note": "Mixtures may suppress or enhance certain peaks"
+  },
+
+  "shift_model": {
+    "critical_peak_tolerance": 5,
+    "non_critical_range": [8, 12],
+    "method": "distance-based scoring",
+    "note": "SERS and mixtures may shift peaks"
+  },
+
+  "overlap_handling": {
+    "rule": "Overlap with aromatic drugs (fentanyl, alprazolam)",
+    "penalty": "require combination of 1255 + 1591 peaks"
+  },
+
+  "confusion_analysis": [
+    {
+      "drug": "Fentanyl",
+      "similarity": "Both have peaks in 1000–1600 region",
+      "difference": "Xylazine dominant at 1591 + 1255; fentanyl has 1000 + 1030",
+      "resolution_strategy": [
+        "1000 dominant → fentanyl",
+        "1591 + 1255 → xylazine"
+      ]
+    },
+    {
+      "drug": "Alprazolam",
+      "similarity": "Both aromatic compounds",
+      "difference": "Alprazolam dominant at 1087; xylazine dominant at 1591",
+      "resolution_strategy": [
+        "1087 → alprazolam",
+        "1591 → xylazine"
+      ]
+    },
+    {
+      "drug": "Cocaine",
+      "similarity": "Both have peaks near 1500–1700",
+      "difference": "Cocaine requires 1000 + 1700; xylazine lacks strong 1000",
+      "resolution_strategy": [
+        "1000 + 1700 → cocaine",
+        "1591 + 1255 → xylazine"
+      ]
+    }
+  ],
+
+  "decision_strategy": {
+    "type": "weighted_evidence",
+    "rules": [
+      "Presence of 1591 peak is essential for xylazine identification",
+      "At least two critical/high peaks should match",
+      "Combination of 1255 + 1591 strongly confirms xylazine",
+      "Missing one critical peak reduces confidence but does not reject",
+      "Single peak match is insufficient",
+      "Conflicting peaks reduce score",
+      "if golden signature matches most then only one critical peak presence is sufficient for identification"
+    ]
+  },
+
+  "notes": "Xylazine is characterized by strong aromatic and heterocyclic ring peaks (~1255 and ~1591 cm⁻¹) and is commonly found in mixtures with opioids"
+},
+{
+  "drug_name": "Morphine",
+  "category": "narcotic (opioid)",
+
+  "source": {
+    "primary": [
+      "peer-reviewed literature",
+      "NIH Raman/SERS studies",
+      "spectral databases"
+    ],
+    "secondary": [
+      "internal golden spectra dataset"
+    ],
+    "confidence": "high"
+  },
+
+  "reference_data": {
+    "num_reference_spectra": 30,
+    "note": "Validated across Raman and SERS datasets; fluorescence common in normal Raman"
+  },
+
+  "golden_signature": {
+    "type": "normalized",
+    "note": "Intensity normalized to max peak = 1",
+    "peaks": [
+      {"position": 627, "intensity": 1.0},
+      {"position": 605, "intensity": 0.4150},
+      {"position": 1635, "intensity": 0.2695},
+      {"position": 528, "intensity": 0.2378},
+      {"position": 353, "intensity": 0.2357},
+      {"position": 400, "intensity": 0.2288},
+      {"position": 442, "intensity": 0.2083},
+      {"position": 1333, "intensity": 0.2071},
+      {"position": 1423, "intensity": 0.1849},
+      {"position": 757, "intensity": 0.1469},
+      {"position": 489, "intensity": 0.1422},
+      {"position": 1088, "intensity": 0.1173},
+      {"position": 707, "intensity": 0.1073},
+      {"position": 1725, "intensity": 0.1061},
+      {"position": 1380, "intensity": 0.1061},
+      {"position": 1282, "intensity": 0.0898},
+      {"position": 1248, "intensity": 0.0870},
+      {"position": 1178, "intensity": 0.0859},
+      {"position": 834, "intensity": 0.0797},
+      {"position": 1471, "intensity": 0.0794},
+      {"position": 1031, "intensity": 0.0734},
+      {"position": 872, "intensity": 0.0692}
+    ]
+  },
+
+  "critical_peaks": [
+    {
+      "position": 627,
+      "tolerance": 5,
+      "frequency": 0.98,
+      "importance": "critical",
+      "label": "ring deformation (opioid core)",
+      "label_source": "literature",
+      "justification": "Most dominant and stable morphine peak (~625–630 cm⁻¹)"
+    },
+    {
+      "position": 528,
+      "tolerance": 6,
+      "frequency": 0.92,
+      "importance": "critical",
+      "label": "ring bending",
+      "label_source": "literature",
+      "justification": "Strong SERS peak (~530 cm⁻¹)"
+    }
+  ],
+
+  "key_peaks": [
+    {
+      "position": 605,
+      "tolerance": 6,
+      "frequency": 0.90,
+      "importance": "high",
+      "relative_intensity": 0.41,
+      "label": "ring deformation"
+    },
+    {
+      "position": 1423,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.18,
+      "label": "CH bending"
+    },
+    {
+      "position": 1635,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.26,
+      "label": "aromatic C=C stretching"
+    },
+    {
+      "position": 1333,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.20,
+      "label": "ring deformation"
+    },
+    {
+      "position": 1248,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.087,
+      "label": "CH bending"
+    },
+    {
+      "position": 1088,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.117,
+      "label": "C-O stretching"
+    }
+  ],
+
+  "peak_patterns": [
+    {
+      "name": "morphine_core_signature",
+      "peaks": [627, 528],
+      "required_matches": 2,
+      "weight": 1.0,
+      "description": "Primary morphine fingerprint"
+    },
+    {
+      "name": "opioid_pattern",
+      "peaks": [528, 605, 627],
+      "required_matches": 2,
+      "weight": 0.9,
+      "description": "Low-frequency opioid structure"
+    },
+    {
+      "name": "aromatic_pattern",
+      "peaks": [1423, 1635],
+      "required_matches": 1,
+      "weight": 0.8,
+      "description": "Aromatic ring confirmation"
+    }
+  ],
+
+  "intensity_model": {
+    "type": "relative",
+    "normalization": "max_peak = 1",
+    "rule": "Intensity contributes proportionally",
+    "note": "SERS enhances low-frequency peaks significantly"
+  },
+
+  "shift_model": {
+    "critical_peak_tolerance": 5,
+    "non_critical_range": [8, 12],
+    "method": "distance-based scoring",
+    "note": "Peak shifts possible due to environment"
+  },
+
+  "overlap_handling": {
+    "rule": "High overlap with other opioids",
+    "penalty": "require multi-peak pattern matching"
+  },
+
+  "confusion_analysis": [
+    {
+      "drug": "Heroin",
+      "similarity": "Both share strong ~630 peak",
+      "difference": "Heroin has dominant 636 only; morphine shows 528 + 605 + 627 cluster",
+      "resolution_strategy": [
+        "single dominant ~636 → heroin",
+        "cluster (528 + 605 + 627) → morphine"
+      ]
+    },
+    {
+      "drug": "Codeine",
+      "similarity": "Both have 630 region peaks",
+      "difference": "Codeine shows broader 530–650 cluster with different intensity ratios",
+      "resolution_strategy": [
+        "strong 530 + 650 → codeine",
+        "strong 528 + 605 + 627 → morphine"
+      ]
+    },
+    {
+      "drug": "Oxycodone",
+      "similarity": "Both opioids",
+      "difference": "Oxycodone has strong carbonyl (~1730), morphine weaker",
+      "resolution_strategy": [
+        "strong 1700 → oxycodone",
+        "dominant low-frequency cluster → morphine"
+      ]
+    }
+  ],
+
+  "decision_strategy": {
+    "type": "weighted_evidence",
+    "rules": [
+      "Presence of 627 peak is essential for morphine",
+      "At least two peaks from 528–605–627 cluster should match",
+      "Aromatic peaks (~1600 region) increase confidence",
+      "Missing one critical peak reduces confidence but does not reject",
+      "Single peak match is insufficient",
+      "Conflicting peaks reduce score",
+      "if golden signature matches most then only one critical peak presence is sufficient for identification"
+    ]
+  },
+
+  "notes": "Morphine is characterized by strong low-frequency opioid peaks (~528–627 cm⁻¹) forming a cluster, with supporting aromatic peaks (~1600 cm⁻¹)"
+},
+{
+  "drug_name": "Methylsulfonylmethane",
+  "alias": ["MSM", "Dimethyl sulfone"],
+  "category": "cutting_agent (non-narcotic)",
+
+  "source": {
+    "primary": [
+      "peer-reviewed literature",
+      "NIH Raman spectroscopy studies",
+      "spectral databases"
+    ],
+    "secondary": [
+      "internal golden spectra dataset"
+    ],
+    "confidence": "high"
+  },
+
+  "reference_data": {
+    "num_reference_spectra": 20,
+    "note": "Validated across crystalline MSM samples; strong Raman signal"
+  },
+
+  "golden_signature": {
+    "type": "normalized",
+    "note": "Intensity normalized to max peak = 1",
+    "peaks": [
+      {"position": 699, "intensity": 1.0},
+      {"position": 1120, "intensity": 0.8102},
+      {"position": 492, "intensity": 0.5925},
+      {"position": 461, "intensity": 0.5797},
+      {"position": 768, "intensity": 0.5364},
+      {"position": 388, "intensity": 0.4225},
+      {"position": 1010, "intensity": 0.3731},
+      {"position": 1404, "intensity": 0.3621},
+      {"position": 1268, "intensity": 0.3157},
+      {"position": 1451, "intensity": 0.2948},
+      {"position": 934, "intensity": 0.0526},
+      {"position": 955, "intensity": 0.0427}
+    ]
+  },
+
+  "critical_peaks": [
+    {
+      "position": 699,
+      "tolerance": 5,
+      "frequency": 0.97,
+      "importance": "critical",
+      "label": "C–S stretching (sulfone group)",
+      "label_source": "literature",
+      "justification": "Most dominant and diagnostic MSM peak"
+    },
+    {
+      "position": 1120,
+      "tolerance": 6,
+      "frequency": 0.95,
+      "importance": "critical",
+      "label": "SO₂ symmetric stretching",
+      "label_source": "literature",
+      "justification": "Unique sulfone signature peak"
+    }
+  ],
+
+  "key_peaks": [
+    {
+      "position": 461,
+      "tolerance": 8,
+      "frequency": 0.90,
+      "importance": "high",
+      "relative_intensity": 0.57,
+      "label": "skeletal vibration"
+    },
+    {
+      "position": 492,
+      "tolerance": 8,
+      "frequency": 0.90,
+      "importance": "high",
+      "relative_intensity": 0.59,
+      "label": "skeletal vibration"
+    },
+    {
+      "position": 768,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "high",
+      "relative_intensity": 0.53,
+      "label": "C–S stretching"
+    },
+    {
+      "position": 1010,
+      "tolerance": 8,
+      "frequency": 0.88,
+      "importance": "medium",
+      "relative_intensity": 0.37,
+      "label": "CH deformation"
+    },
+    {
+      "position": 1268,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.31,
+      "label": "SO₂ asymmetric stretching"
+    },
+    {
+      "position": 1404,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.36,
+      "label": "CH bending"
+    },
+    {
+      "position": 1451,
+      "tolerance": 10,
+      "frequency": 0.85,
+      "importance": "medium",
+      "relative_intensity": 0.29,
+      "label": "CH deformation"
+    }
+  ],
+
+  "peak_patterns": [
+    {
+      "name": "msm_core_signature",
+      "peaks": [699, 1120],
+      "required_matches": 2,
+      "weight": 1.0,
+      "description": "Primary MSM sulfone fingerprint"
+    },
+    {
+      "name": "sulfone_pattern",
+      "peaks": [1120, 1268, 1404],
+      "required_matches": 2,
+      "weight": 0.9,
+      "description": "SO₂ functional group signature"
+    }
+  ],
+
+  "intensity_model": {
+    "type": "relative",
+    "normalization": "max_peak = 1",
+    "rule": "Intensity contributes proportionally",
+    "note": "Crystalline MSM shows strong sharp peaks"
+  },
+
+  "shift_model": {
+    "critical_peak_tolerance": 5,
+    "non_critical_range": [8, 12],
+    "method": "distance-based scoring",
+    "note": "Stable compound → minimal peak shift"
+  },
+
+  "overlap_handling": {
+    "rule": "Minimal overlap with narcotics",
+    "penalty": "low false-positive risk"
+  },
+
+  "confusion_analysis": [
+    {
+      "drug": "Methamphetamine",
+      "similarity": "Minor overlap near 1000 region",
+      "difference": "MSM lacks aromatic 1000 + 1019 pattern",
+      "resolution_strategy": [
+        "699 + 1120 → MSM",
+        "1001 + 1019 → meth"
+      ]
+    },
+    {
+      "drug": "Cocaine",
+      "similarity": "Some peaks in 1000–1400 region",
+      "difference": "Cocaine requires 1000 + 1700",
+      "resolution_strategy": [
+        "1120 + 699 → MSM",
+        "1000 + 1700 → cocaine"
+      ]
+    }
+  ],
+
+  "decision_strategy": {
+    "type": "weighted_evidence",
+    "rules": [
+      "Presence of 699 and 1120 peaks strongly confirms MSM",
+      "At least two critical/high peaks required",
+      "Sulfone pattern (1120 + 1268) increases confidence",
+      "Missing one critical peak reduces confidence but does not reject",
+      "Single peak match is insufficient",
+      "Conflicting peaks reduce score",
+      "if golden signature matches most then only one critical peak presence is sufficient for identification"
+    ]
+  },
+
+  "notes": "MSM is a common cutting agent identified by strong sulfone peaks (~699 and ~1120 cm⁻¹) and lacks aromatic drug signatures"
 }
 ]

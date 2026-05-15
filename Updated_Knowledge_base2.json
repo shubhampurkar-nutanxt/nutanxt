@@ -1,0 +1,999 @@
+[
+    {
+  "drug_name": "Methamphetamine",
+  "category": "narcotic",
+
+  "source": {
+    "primary": [
+      "peer-reviewed literature",
+      "spectral databases (NIST/Wiley)",
+      "published Raman spectroscopy studies"
+    ],
+    "secondary": [
+      "internal golden spectra dataset"
+    ],
+    "confidence": "high"
+  },
+
+  "reference_data": {
+    "num_reference_spectra": 40,
+    "note": "Golden peaks derived from validated spectra and literature-supported assignments"
+  },
+
+  "golden_signature": {
+    "type": "normalized",
+    "note": "Intensity normalized to max peak = 1",
+    "peaks": [
+      {"position": 1001, "intensity": 1.0},
+      {"position": 836, "intensity": 0.3344},
+      {"position": 431, "intensity": 0.2052},
+      {"position": 1019, "intensity": 0.1976},
+      {"position": 1730, "intensity": 0.1370},
+      {"position": 622, "intensity": 0.1278},
+      {"position": 1210, "intensity": 0.1034},
+      {"position": 1604, "intensity": 0.0980},
+      {"position": 1360, "intensity": 0.0958},
+      {"position": 749, "intensity": 0.0922},
+      {"position": 1453, "intensity": 0.0812},
+      {"position": 1178, "intensity": 0.0733},
+      {"position": 367, "intensity": 0.0687},
+      {"position": 986, "intensity": 0.0653},
+      {"position": 889, "intensity": 0.0359},
+      {"position": 1081, "intensity": 0.0315},
+      {"position": 704, "intensity": 0.0302}
+    ]
+  },
+
+  "critical_peaks": [
+    {
+      "position": 1001,
+      "tolerance": 5,
+      "importance": "critical",
+      "label": "benzene ring breathing",
+      "label_source": "literature",
+      "justification": "Most dominant and reproducible Raman peak for methamphetamine"
+    },
+    {
+      "position": 1019,
+      "tolerance": 6,
+      "importance": "critical",
+      "label": "C-C and C-N stretching",
+      "label_source": "literature",
+      "justification": "Key differentiating peak from amphetamine"
+    }
+  ],
+
+  "key_peaks": [
+    {
+      "position": 986,
+      "tolerance": 10,
+      "importance": "high",
+      "relative_intensity": 0.065,
+      "label": "C-H bending",
+      "note": "part of meth signature pattern"
+    },
+    {
+      "position": 1604,
+      "tolerance": 8,
+      "importance": "high",
+      "relative_intensity": 0.098,
+      "label": "phenyl ring vibration"
+    },
+    {
+      "position": 836,
+      "tolerance": 10,
+      "importance": "medium",
+      "relative_intensity": 0.334,
+      "label": "C-H rocking"
+    },
+    {
+      "position": 1210,
+      "tolerance": 10,
+      "importance": "medium",
+      "relative_intensity": 0.103,
+      "label": "N-H rocking"
+    },
+    {
+      "position": 1453,
+      "tolerance": 10,
+      "importance": "medium",
+      "relative_intensity": 0.081,
+      "label": "CH deformation"
+    },
+    {
+      "position": 622,
+      "tolerance": 12,
+      "importance": "low",
+      "relative_intensity": 0.127,
+      "label": "skeletal vibration"
+    },
+    {
+      "position": 431,
+      "tolerance": 12,
+      "importance": "low",
+      "relative_intensity": 0.205,
+      "label": "low-frequency skeletal mode"
+    }
+  ],
+
+  "peak_patterns": [
+    {
+      "name": "meth_core_signature",
+      "peaks": [986, 1001, 1019],
+      "required_matches": 2,
+      "weight": 1.0,
+      "description": "Primary methamphetamine fingerprint"
+    },
+    {
+      "name": "aromatic_pattern",
+      "peaks": [1001, 1604],
+      "required_matches": 2,
+      "weight": 0.8
+    }
+  ],
+
+  "intensity_model": {
+    "type": "relative",
+    "normalization": "max_peak = 1",
+    "rule": "Intensity contributes proportionally; low intensity peaks are not eliminated",
+    "note": "Intensity depends on concentration and instrument sensitivity"
+  },
+
+  "shift_model": {
+    "critical_peak_tolerance": 5,
+    "non_critical_range": [8, 12],
+    "method": "distance-based scoring",
+    "rule": "Closer peaks have higher contribution; farther peaks reduce confidence"
+  },
+
+  "overlap_handling": {
+    "rule": "If peak matches multiple drugs, assign score based on proximity",
+    "penalty": "reduce confidence for ambiguous peaks",
+    "example": "1025 peak is ambiguous between meth (1019) and amphetamine (1032)"
+  },
+
+  "confusion_analysis": [
+    {
+      "drug": "Amphetamine",
+      "similarity": "Both share strong ~1000 cm⁻¹ aromatic peak",
+      "difference": "Meth shows 1019 peak; amphetamine shows 1032 peak",
+      "resolution_strategy": [
+        "1019 → methamphetamine",
+        "1032 → amphetamine",
+        "If peak ~1025 → ambiguous, reduce weight"
+      ]
+    },
+    {
+      "drug": "Cocaine",
+      "similarity": "Both show aromatic peaks",
+      "difference": "Cocaine has strong carbonyl peak (~1700 cm⁻¹)",
+      "resolution_strategy": [
+        "Presence of 1700 peak → cocaine",
+        "Absence → methamphetamine"
+      ]
+    }
+  ],
+
+  "decision_strategy": {
+    "type": "weighted_evidence",
+    "rules": [
+      "At least two critical or high-confidence peaks should match",
+      "Presence of 986 + 1001 + 1019 strongly confirms meth signature",
+      "Missing one critical peak reduces confidence but does not reject",
+      "Single peak match is insufficient",
+      "Pattern match increases confidence significantly",
+      "Conflicting peaks reduce score",
+      "if golden signaure matches most then only one critical peak presence is sufficient for identification"
+    ]
+  },
+
+  "notes": "Methamphetamine shows a strong aromatic Raman signature dominated by ~1001 cm⁻¹ peak, supported by 1019 and 986 peaks, and absence of carbonyl (~1700 cm⁻¹)"
+},
+{
+  "drug_name": "Amphetamine",
+  "category": "narcotic",
+
+  "source": {
+    "primary": [
+      "peer-reviewed literature",
+      "spectral databases (NIST/Wiley)",
+      "published Raman spectroscopy studies"
+    ],
+    "secondary": [
+      "internal golden spectra dataset"
+    ],
+    "confidence": "high"
+  },
+
+  "reference_data": {
+    "num_reference_spectra": 35,
+    "note": "Peaks derived from consistent observation across datasets and validated against literature"
+  },
+
+  "golden_signature": {
+    "type": "normalized",
+    "note": "Intensity normalized to max peak = 1",
+    "peaks": [
+      {"position": 1002, "intensity": 1.0},
+      {"position": 971, "intensity": 0.7488},
+      {"position": 1032, "intensity": 0.5557},
+      {"position": 621, "intensity": 0.4479},
+      {"position": 1209, "intensity": 0.3513},
+      {"position": 816, "intensity": 0.3094},
+      {"position": 840, "intensity": 0.2925},
+      {"position": 1609, "intensity": 0.2715},
+      {"position": 1159, "intensity": 0.2017},
+      {"position": 448, "intensity": 0.1773},
+      {"position": 1586, "intensity": 0.1556},
+      {"position": 1184, "intensity": 0.1515},
+      {"position": 744, "intensity": 0.1512},
+      {"position": 948, "intensity": 0.1165},
+      {"position": 1458, "intensity": 0.1134},
+      {"position": 1104, "intensity": 0.0920},
+      {"position": 597, "intensity": 0.0863},
+      {"position": 1701, "intensity": 0.0847},
+      {"position": 1332, "intensity": 0.0753},
+      {"position": 1365, "intensity": 0.0705},
+      {"position": 506, "intensity": 0.0696},
+      {"position": 372, "intensity": 0.0527},
+      {"position": 919, "intensity": 0.0396},
+      {"position": 1249, "intensity": 0.0343},
+      {"position": 895, "intensity": 0.0310}
+    ]
+  },
+
+  "critical_peaks": [
+    {
+      "position": 1002,
+      "tolerance": 5,
+      "importance": "critical",
+      "label": "benzene ring breathing",
+      "label_source": "literature",
+      "justification": "Most dominant and consistent Raman peak for amphetamine"
+    },
+    {
+      "position": 1032,
+      "tolerance": 6,
+      "importance": "critical",
+      "label": "C-C and C-N stretching",
+      "label_source": "literature",
+      "justification": "Key differentiating peak from methamphetamine"
+    }
+  ],
+
+  "key_peaks": [
+    {
+      "position": 971,
+      "tolerance": 6,
+      "importance": "high",
+      "relative_intensity": 0.74,
+      "label": "C-H bending",
+      "note": "important structural peak"
+    },
+    {
+      "position": 1332,
+      "tolerance": 8,
+      "importance": "high",
+      "relative_intensity": 0.075,
+      "label": "CH deformation",
+      "note": "key differentiating feature"
+    },
+    {
+      "position": 816,
+      "tolerance": 10,
+      "importance": "high",
+      "relative_intensity": 0.309,
+      "label": "C-H rocking",
+      "note": "distinct from methamphetamine"
+    },
+    {
+      "position": 1209,
+      "tolerance": 10,
+      "importance": "medium",
+      "relative_intensity": 0.351,
+      "label": "N-H and C-H rocking"
+    },
+    {
+      "position": 1609,
+      "tolerance": 8,
+      "importance": "medium",
+      "relative_intensity": 0.271,
+      "label": "phenyl ring vibration"
+    },
+    {
+      "position": 1458,
+      "tolerance": 10,
+      "importance": "medium",
+      "relative_intensity": 0.113,
+      "label": "CH deformation"
+    },
+    {
+      "position": 621,
+      "tolerance": 12,
+      "importance": "low",
+      "relative_intensity": 0.447,
+      "label": "skeletal vibration"
+    }
+  ],
+
+  "peak_patterns": [
+    {
+      "name": "amphetamine_core_signature",
+      "peaks": [1002, 1032, 971],
+      "required_matches": 2,
+      "weight": 1.0,
+      "description": "Primary amphetamine fingerprint"
+    },
+    {
+      "name": "differentiation_pattern",
+      "peaks": [1032, 816, 1332],
+      "required_matches": 2,
+      "weight": 0.9,
+      "description": "Differentiates amphetamine from methamphetamine"
+    }
+  ],
+
+  "intensity_model": {
+    "type": "relative",
+    "normalization": "max_peak = 1",
+    "rule": "Intensity contributes proportionally; low intensity peaks are not eliminated",
+    "note": "Intensity depends on concentration and instrument sensitivity"
+  },
+
+  "shift_model": {
+    "critical_peak_tolerance": 5,
+    "non_critical_range": [8, 12],
+    "method": "distance-based scoring",
+    "rule": "Closer peaks increase confidence; distant peaks reduce weight"
+  },
+
+  "overlap_handling": {
+    "rule": "If peak matches multiple drugs, assign score based on proximity",
+    "penalty": "reduce confidence for ambiguous peaks",
+    "example": "1025 peak lies between 1019 (meth) and 1032 (amphetamine)"
+  },
+
+  "confusion_analysis": [
+    {
+      "drug": "Methamphetamine",
+      "similarity": "Both share strong aromatic peak near ~1000 cm⁻¹",
+      "difference": "Amphetamine shows 1032 peak; meth shows 1019",
+      "resolution_strategy": [
+        "1032 → amphetamine",
+        "1019 → methamphetamine",
+        "If peak ~1025 → ambiguous, reduce confidence"
+      ]
+    },
+    {
+      "drug": "Cocaine",
+      "difference": "Cocaine shows strong carbonyl peak (~1700 cm⁻¹)"
+    }
+  ],
+
+  "decision_strategy": {
+    "type": "weighted_evidence",
+    "rules": [
+      "At least two critical or high-confidence peaks should match",
+      "Presence of 1002 + 1032 strongly supports amphetamine",
+      "Presence of 816 and 1332 strengthens differentiation",
+      "Missing one critical peak reduces confidence but does not reject",
+      "Single peak match is insufficient",
+      "Pattern match increases confidence significantly",
+      "Conflicting peaks reduce score",
+      "if golden signaure matches most then only one critical peak presence is sufficient for identification"
+
+    ]
+  },
+
+  "notes": "Amphetamine is characterized by strong aromatic peak (~1002 cm⁻¹) with key differentiators at 1032, 816, and 1332, distinguishing it from methamphetamine"
+},
+{
+  "drug_name": "Fentanyl",
+  "category": "narcotic",
+
+  "source": {
+    "primary": [
+      "peer-reviewed literature",
+      "NIH / Frontiers / MDPI publications",
+      "spectral databases"
+    ],
+    "secondary": [
+      "internal golden spectra dataset"
+    ],
+    "confidence": "high"
+  },
+
+  "reference_data": {
+    "num_reference_spectra": 30,
+    "note": "Peaks validated across Raman and SERS datasets"
+  },
+
+  "golden_signature": {
+    "type": "normalized",
+    "note": "Intensity normalized to max peak = 1",
+    "peaks": [
+      {"position": 1001, "intensity": 1.0},
+      {"position": 1033, "intensity": 0.2507},
+      {"position": 829, "intensity": 0.1771},
+      {"position": 1161, "intensity": 0.1727},
+      {"position": 743, "intensity": 0.1695},
+      {"position": 1253, "intensity": 0.1612},
+      {"position": 620, "intensity": 0.1577},
+      {"position": 1205, "intensity": 0.1379},
+      {"position": 1602, "intensity": 0.1226},
+      {"position": 1457, "intensity": 0.1173},
+      {"position": 1284, "intensity": 0.1109},
+      {"position": 1075, "intensity": 0.1077},
+      {"position": 1646, "intensity": 0.0930},
+      {"position": 1046, "intensity": 0.0646},
+      {"position": 810, "intensity": 0.0637},
+      {"position": 318, "intensity": 0.0607},
+      {"position": 1314, "intensity": 0.0587},
+      {"position": 1683, "intensity": 0.0491},
+      {"position": 1407, "intensity": 0.0468},
+      {"position": 1123, "intensity": 0.0392},
+      {"position": 471, "intensity": 0.0366},
+      {"position": 962, "intensity": 0.0319}
+    ]
+  },
+
+  "critical_peaks": [
+    {
+      "position": 1001,
+      "tolerance": 5,
+      "importance": "critical",
+      "label": "phenyl ring breathing",
+      "label_source": "literature",
+      "justification": "Most intense and consistent diagnostic peak"
+    },
+    {
+      "position": 1033,
+      "tolerance": 6,
+      "importance": "critical",
+      "label": "C-C stretching (phenyl)",
+      "label_source": "literature",
+      "justification": "Characteristic secondary peak forming doublet with 1001"
+    }
+  ],
+
+  "key_peaks": [
+    {
+      "position": 1602,
+      "tolerance": 8,
+      "importance": "high",
+      "relative_intensity": 0.12,
+      "label": "phenyl ring C=C stretching"
+    },
+    {
+      "position": 1457,
+      "tolerance": 8,
+      "importance": "high",
+      "relative_intensity": 0.117,
+      "label": "CH2/CH3 bending"
+    },
+    {
+      "position": 1205,
+      "tolerance": 10,
+      "importance": "medium",
+      "relative_intensity": 0.137,
+      "label": "phenyl ring vibration"
+    },
+    {
+      "position": 1161,
+      "tolerance": 10,
+      "importance": "medium",
+      "relative_intensity": 0.172,
+      "label": "ring vibration"
+    },
+    {
+      "position": 829,
+      "tolerance": 10,
+      "importance": "medium",
+      "relative_intensity": 0.177,
+      "label": "C-H rocking"
+    },
+    {
+      "position": 743,
+      "tolerance": 10,
+      "importance": "medium",
+      "relative_intensity": 0.169,
+      "label": "ring stretch"
+    },
+    {
+      "position": 620,
+      "tolerance": 12,
+      "importance": "medium",
+      "relative_intensity": 0.157,
+      "label": "phenyl ring bending"
+    }
+  ],
+
+  "peak_patterns": [
+    {
+      "name": "fentanyl_core_signature",
+      "peaks": [1001, 1033],
+      "required_matches": 2,
+      "weight": 1.0,
+      "description": "Primary fentanyl doublet signature"
+    },
+    {
+      "name": "broad_structure_pattern",
+      "peaks": [1001, 1033, 1205, 1457, 1602],
+      "required_matches": 3,
+      "weight": 0.9,
+      "description": "Broad phenyl + aliphatic structure confirmation"
+    }
+  ],
+
+  "intensity_model": {
+    "type": "relative",
+    "normalization": "max_peak = 1",
+    "rule": "Intensity contributes proportionally; weak peaks are not discarded",
+    "note": "SERS may alter relative intensities"
+  },
+
+  "shift_model": {
+    "critical_peak_tolerance": 5,
+    "non_critical_range": [8, 12],
+    "method": "distance-based scoring",
+    "note": "SERS may introduce small peak shifts"
+  },
+
+  "overlap_handling": {
+    "rule": "Peaks near 1000–1030 region may overlap with other drugs",
+    "penalty": "reduce confidence if no supporting peaks present"
+  },
+
+  "confusion_analysis": [
+    {
+      "drug": "Methamphetamine",
+      "similarity": "Both share peaks near 1000 cm⁻¹",
+      "difference": "Meth has 1019; fentanyl has 1033 and strong 1457 peak",
+      "resolution_strategy": [
+        "Presence of 1457 and broad 1200–1600 peaks → fentanyl",
+        "Presence of 1019 → methamphetamine"
+      ]
+    },
+    {
+      "drug": "Cocaine",
+      "similarity": "Aromatic peaks present",
+      "difference": "Cocaine has strong carbonyl (~1700 cm⁻¹)",
+      "resolution_strategy": [
+        "Strong 1700 peak → cocaine",
+        "Broad mid-region peaks → fentanyl"
+      ]
+    }
+  ],
+
+  "decision_strategy": {
+    "type": "weighted_evidence",
+    "rules": [
+      "Presence of 1001 + 1033 strongly supports fentanyl",
+      "At least two critical/high peaks should match",
+      "Broad peak distribution (1200–1600 region) increases confidence",
+      "Missing one critical peak reduces confidence but does not reject",
+      "Single peak match is insufficient",
+      "Conflicting peaks reduce score",
+      "if golden signature matches most then only one critical peak presence is sufficient for identification"
+
+    ]
+  },
+
+  "notes": "Fentanyl is characterized by a strong doublet near 1000–1030 cm⁻¹ and broad supporting peaks in 1200–1600 cm⁻¹ region, distinguishing it from methamphetamine and cocaine"
+},
+{
+  "drug_name": "Cocaine",
+  "category": "narcotic",
+
+  "source": {
+    "primary": [
+      "peer-reviewed literature",
+      "ScienceDirect",
+      "spectral databases (NIST/Wiley)"
+    ],
+    "secondary": [
+      "internal golden spectra dataset"
+    ],
+    "confidence": "high"
+  },
+
+  "reference_data": {
+    "num_reference_spectra": 35,
+    "note": "Peaks validated across cocaine base and hydrochloride forms"
+  },
+
+  "golden_signature": {
+    "type": "normalized",
+    "note": "Intensity normalized to max peak = 1",
+    "peaks": [
+      {"position": 1000, "intensity": 1.0},
+      {"position": 1707, "intensity": 0.3760},
+      {"position": 785, "intensity": 0.3485},
+      {"position": 845, "intensity": 0.3471},
+      {"position": 1600, "intensity": 0.3416},
+      {"position": 870, "intensity": 0.2635},
+      {"position": 895, "intensity": 0.2240},
+      {"position": 616, "intensity": 0.2012},
+      {"position": 1273, "intensity": 0.1852},
+      {"position": 1029, "intensity": 0.1627},
+      {"position": 366, "intensity": 0.1401},
+      {"position": 1448, "intensity": 0.1344},
+      {"position": 1316, "intensity": 0.0908},
+      {"position": 727, "intensity": 0.0775},
+      {"position": 1161, "intensity": 0.0763},
+      {"position": 802, "intensity": 0.0669},
+      {"position": 518, "intensity": 0.0627},
+      {"position": 650, "intensity": 0.0608},
+      {"position": 1115, "intensity": 0.0507},
+      {"position": 1217, "intensity": 0.0382},
+      {"position": 1069, "intensity": 0.0372},
+      {"position": 977, "intensity": 0.0361}
+    ]
+  },
+
+  "critical_peaks": [
+    {
+      "position": 1000,
+      "tolerance": 5,
+      "importance": "critical",
+      "label": "benzene ring breathing",
+      "label_source": "literature",
+      "justification": "Most intense and reliable fingerprint peak"
+    },
+    {
+      "position": 1707,
+      "tolerance": 6,
+      "importance": "critical",
+      "label": "C=O carbonyl stretching",
+      "label_source": "literature",
+      "justification": "Key differentiator from methamphetamine and amphetamine"
+    }
+  ],
+
+  "key_peaks": [
+    {
+      "position": 1600,
+      "tolerance": 8,
+      "importance": "high",
+      "relative_intensity": 0.34,
+      "label": "aromatic C=C stretching"
+    },
+    {
+      "position": 1273,
+      "tolerance": 6,
+      "importance": "high",
+      "relative_intensity": 0.18,
+      "label": "C-O stretching (ester)"
+    },
+    {
+      "position": 845,
+      "tolerance": 10,
+      "importance": "high",
+      "relative_intensity": 0.34,
+      "label": "tropane ring vibration"
+    },
+    {
+      "position": 870,
+      "tolerance": 10,
+      "importance": "high",
+      "relative_intensity": 0.26,
+      "label": "tropane ring stretching"
+    },
+    {
+      "position": 785,
+      "tolerance": 10,
+      "importance": "medium",
+      "relative_intensity": 0.34,
+      "label": "ring deformation"
+    },
+    {
+      "position": 1029,
+      "tolerance": 6,
+      "importance": "medium",
+      "relative_intensity": 0.16,
+      "label": "asymmetric phenyl breathing"
+    },
+    {
+      "position": 1448,
+      "tolerance": 8,
+      "importance": "medium",
+      "relative_intensity": 0.13,
+      "label": "CH bending"
+    }
+  ],
+
+  "peak_patterns": [
+    {
+      "name": "cocaine_core_signature",
+      "peaks": [1000, 1707],
+      "required_matches": 2,
+      "weight": 1.0,
+      "description": "Primary cocaine fingerprint (aromatic + carbonyl)"
+    },
+    {
+      "name": "tropane_structure_pattern",
+      "peaks": [845, 870, 1273],
+      "required_matches": 2,
+      "weight": 0.9,
+      "description": "Tropane ring + ester confirmation"
+    }
+  ],
+
+  "intensity_model": {
+    "type": "relative",
+    "normalization": "max_peak = 1",
+    "rule": "Intensity contributes proportionally; not absolute",
+    "note": "May vary with concentration and SERS enhancement"
+  },
+
+  "shift_model": {
+    "critical_peak_tolerance": 5,
+    "non_critical_range": [8, 12],
+    "method": "distance-based scoring",
+    "note": "Small shifts expected between base and HCl forms"
+  },
+
+  "overlap_handling": {
+    "rule": "1000 cm⁻¹ peak overlaps with methamphetamine and amphetamine",
+    "penalty": "do not use 1000 peak alone for identification"
+  },
+
+  "confusion_analysis": [
+    {
+      "drug": "Methamphetamine",
+      "similarity": "Both share ~1000 peak",
+      "difference": "Meth lacks carbonyl (~1700)",
+      "resolution_strategy": [
+        "1700 peak → cocaine",
+        "1019 peak → methamphetamine"
+      ]
+    },
+    {
+      "drug": "Amphetamine",
+      "similarity": "Both share aromatic peaks",
+      "difference": "Amphetamine lacks carbonyl peak",
+      "resolution_strategy": [
+        "Presence of 1700 → cocaine",
+        "Presence of 1032 → amphetamine"
+      ]
+    },
+    {
+      "drug": "Cutting agents (Paracetamol, Procaine)",
+      "similarity": "Overlap in 1200–1600 region",
+      "difference": "Cocaine has strong 1000 + 1700 combination",
+      "resolution_strategy": [
+        "Check for 1700 peak",
+        "Verify tropane peaks (845, 870)"
+      ]
+    }
+  ],
+
+  "decision_strategy": {
+    "type": "weighted_evidence",
+    "rules": [
+      "Presence of both 1000 and 1700 peaks strongly confirms cocaine",
+      "At least two critical/high peaks required",
+      "1000 peak alone is insufficient",
+      "Pattern match (tropane + ester) increases confidence",
+      "Missing 1700 reduces confidence significantly",
+      "Conflicting peaks reduce score",
+      "if golden signature matches most then only one critical peak presence is sufficient for identification"
+
+    ]
+  },
+
+  "notes": "Cocaine is identified by strong aromatic peak (~1000 cm⁻¹) combined with carbonyl (~1700 cm⁻¹), distinguishing it from methamphetamine and amphetamine"
+},
+
+{
+  "drug_name": "CocaineHCl",
+  "category": "narcotic",
+
+  "source": {
+    "primary": [
+      "peer-reviewed literature",
+      "NIH / ResearchGate publications",
+      "spectral databases"
+    ],
+    "secondary": [
+      "internal golden spectra dataset"
+    ],
+    "confidence": "high"
+  },
+
+  "reference_data": {
+    "num_reference_spectra": 30,
+    "note": "Validated across cocaine hydrochloride samples and Raman/SERS studies"
+  },
+
+  "golden_signature": {
+    "type": "normalized",
+    "note": "Intensity normalized to max peak = 1",
+    "peaks": [
+      {"position": 374, "intensity": 1.0},
+      {"position": 999, "intensity": 0.8836},
+      {"position": 1596, "intensity": 0.7256},
+      {"position": 1712, "intensity": 0.6136},
+      {"position": 1024, "intensity": 0.4884},
+      {"position": 868, "intensity": 0.4540},
+      {"position": 783, "intensity": 0.4096},
+      {"position": 612, "intensity": 0.3900},
+      {"position": 1274, "intensity": 0.3400},
+      {"position": 1458, "intensity": 0.1958},
+      {"position": 581, "intensity": 0.1737},
+      {"position": 815, "intensity": 0.1735},
+      {"position": 1166, "intensity": 0.1605},
+      {"position": 486, "intensity": 0.1574},
+      {"position": 679, "intensity": 0.1566},
+      {"position": 1077, "intensity": 0.1548},
+      {"position": 894, "intensity": 0.1470},
+      {"position": 1204, "intensity": 0.1197},
+      {"position": 850, "intensity": 0.1095},
+      {"position": 727, "intensity": 0.1060},
+      {"position": 1056, "intensity": 0.1059},
+      {"position": 750, "intensity": 0.1053},
+      {"position": 1396, "intensity": 0.0682},
+      {"position": 1233, "intensity": 0.0613},
+      {"position": 1297, "intensity": 0.0572},
+      {"position": 560, "intensity": 0.0566},
+      {"position": 1136, "intensity": 0.0558},
+      {"position": 541, "intensity": 0.0490},
+      {"position": 1313, "intensity": 0.0424},
+      {"position": 923, "intensity": 0.0394},
+      {"position": 952, "intensity": 0.0391}
+    ]
+  },
+
+  "critical_peaks": [
+    {
+      "position": 1712,
+      "tolerance": 5,
+      "importance": "critical",
+      "label": "C=O carbonyl stretching",
+      "label_source": "literature",
+      "justification": "Most diagnostic peak for cocaine HCl"
+    },
+    {
+      "position": 999,
+      "tolerance": 5,
+      "importance": "critical",
+      "label": "aromatic ring breathing",
+      "label_source": "literature",
+      "justification": "Strong fingerprint peak"
+    }
+  ],
+
+  "key_peaks": [
+    {
+      "position": 1596,
+      "tolerance": 8,
+      "importance": "high",
+      "relative_intensity": 0.72,
+      "label": "aromatic C=C stretching"
+    },
+    {
+      "position": 1274,
+      "tolerance": 6,
+      "importance": "high",
+      "relative_intensity": 0.34,
+      "label": "C-N stretching"
+    },
+    {
+      "position": 868,
+      "tolerance": 10,
+      "importance": "high",
+      "relative_intensity": 0.45,
+      "label": "tropane ring stretching"
+    },
+    {
+      "position": 894,
+      "tolerance": 10,
+      "importance": "high",
+      "relative_intensity": 0.14,
+      "label": "tropane ring stretching"
+    },
+    {
+      "position": 783,
+      "tolerance": 10,
+      "importance": "medium",
+      "relative_intensity": 0.40,
+      "label": "ring deformation"
+    },
+    {
+      "position": 1458,
+      "tolerance": 8,
+      "importance": "medium",
+      "relative_intensity": 0.19,
+      "label": "CH3 deformation"
+    },
+    {
+      "position": 1024,
+      "tolerance": 6,
+      "importance": "medium",
+      "relative_intensity": 0.48,
+      "label": "phenyl stretching"
+    }
+  ],
+
+  "peak_patterns": [
+    {
+      "name": "cocaine_hcl_core",
+      "peaks": [1712, 999],
+      "required_matches": 2,
+      "weight": 1.0,
+      "description": "Primary cocaine HCl fingerprint"
+    },
+    {
+      "name": "tropane_doublet_pattern",
+      "peaks": [850, 868, 894],
+      "required_matches": 2,
+      "weight": 0.9,
+      "description": "HCl-specific tropane ring pattern"
+    }
+  ],
+
+  "intensity_model": {
+    "type": "relative",
+    "normalization": "max_peak = 1",
+    "rule": "Intensity contributes proportionally; not absolute",
+    "note": "Affected by concentration and SERS"
+  },
+
+  "shift_model": {
+    "critical_peak_tolerance": 5,
+    "non_critical_range": [8, 12],
+    "method": "distance-based scoring",
+    "note": "Carbonyl peak shift distinguishes base vs HCl"
+  },
+
+  "overlap_handling": {
+    "rule": "1000 region overlaps with methamphetamine and amphetamine",
+    "penalty": "require carbonyl peak confirmation"
+  },
+
+  "confusion_analysis": [
+    {
+      "drug": "Cocaine (base)",
+      "similarity": "Both share 1000 and 1700 peaks",
+      "difference": "HCl shows doublet in 850–890 region; base shows triple peaks",
+      "resolution_strategy": [
+        "Two peaks ~850–890 → HCl",
+        "Three peaks → base cocaine"
+      ]
+    },
+    {
+      "drug": "Methamphetamine",
+      "difference": "Meth lacks 1700 peak",
+      "resolution_strategy": [
+        "Presence of 1700 → cocaine family",
+        "Presence of 1019 → meth"
+      ]
+    },
+    {
+      "drug": "Fentanyl",
+      "similarity": "Overlap near 1000–1030",
+      "difference": "Fentanyl lacks strong carbonyl peak",
+      "resolution_strategy": [
+        "1700 present → cocaine HCl",
+        "1457 strong → fentanyl"
+      ]
+    }
+  ],
+
+  "decision_strategy": {
+    "type": "weighted_evidence",
+    "rules": [
+      "Presence of 1712 + 999 strongly confirms cocaine HCl",
+      "At least two critical/high peaks required",
+      "1000 peak alone is insufficient",
+      "Tropane pattern (850–890 region) increases confidence",
+      "Missing carbonyl peak reduces confidence significantly",
+      "Conflicting peaks reduce score",
+      "if golden signature matches most then only one critical peak presence is sufficient for identification"
+
+    ]
+  },
+
+  "notes": "Cocaine HCl is identified by strong carbonyl (~1712 cm⁻¹), aromatic (~999 cm⁻¹), and characteristic tropane doublet (~850–890 cm⁻¹)"
+}
+]
